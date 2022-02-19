@@ -1,6 +1,6 @@
 # beatme - unbeatable tic-tac-toe
 
-[try it!](5tupidmuffin.github.io/beatme)
+[try it!](https://5tupidmuffin.github.io/beatme)
 
 ### refs -
 
