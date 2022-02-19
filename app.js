@@ -56,7 +56,9 @@ const move = (index, player) => {
   if (board[index] === "-") {
     board[index] = player;
     squares[index].textContent = player ? "x" : "o";
-    setTimeout(computerMove, 700);
+    if (player) {
+      computerMove();
+    }
   }
 };
 
@@ -70,10 +72,10 @@ const computerMove = () => {
       board[idx] = false;
       score = minimax(
         board,
-        100,
+        5,
         Number.NEGATIVE_INFINITY,
         Number.POSITIVE_INFINITY,
-        true
+        false
       );
       board[idx] = "-";
       if (score > bestScore) {
