@@ -5,8 +5,20 @@ squares.forEach((square, index) => {
   };
 });
 
+const modal = document.querySelector(".modal");
+const messageSpan = document.querySelector(".message");
+let isOpen = false;
+const toggleMessage = (message) => {
+  if (!isOpen) {
+    isOpen = true;
+    messageSpan.textContent = message;
+    setTimeout(() => modal.classList.toggle("hidden"), 700);
+  }
+};
+
 let currentPlayer = true;
 let board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
+let isRunning = true;
 
 // possible winning positions
 const winCombos = [
@@ -52,10 +64,29 @@ const isOver = (board) => {
   return count === 9 ? true : false;
 };
 
+// reset whole game
+const reset = () => {
+  isRunning = true;
+  board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
+  squares.forEach((square) => {
+    square.textContent = "-";
+  });
+  isOpen = false;
+  modal.classList.toggle("hidden");
+};
+
 const move = (index, player) => {
-  if (board[index] === "-") {
+  if (board[index] === "-" && isRunning) {
     board[index] = player;
-    squares[index].textContent = player ? "x" : "o";
+    squares[index].textContent = player ? "X" : "O";
+    if (isWin(board, true) || isWin(board, false)) {
+      isRunning = false;
+      if (isWin(board, false)) {
+        toggleMessage("Computer Won!");
+      } else {
+        toggleMessage("You Won! o.O"); // not possible :p
+      }
+    }
     if (player) {
       computerMove();
     }
