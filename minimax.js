@@ -32,7 +32,7 @@ const minimax = (position, depth, alpha, beta, maximizingPlayer) => {
         tempEval = minimax(position, depth - 1, alpha, beta, true);
         position[idx] = "-";
       }
-      minEval = Math.max(tempEval, minEval);
+      minEval = Math.min(tempEval, minEval);
       beta = Math.min(beta, tempEval);
       if (beta <= alpha) break;
     }
