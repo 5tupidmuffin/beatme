@@ -5,6 +5,17 @@ squares.forEach((square, index) => {
   };
 });
 
+// details
+const games = document.querySelector("#games");
+const wins = document.querySelector("#wins");
+const defeats = document.querySelector("#defeats");
+const time = document.querySelector("#time");
+
+// counter
+let winsCount = 0,
+  defeatsCount = 0,
+  gamesCount = 0;
+
 const modal = document.querySelector(".modal");
 const messageSpan = document.querySelector(".message");
 let isOpen = false;
@@ -49,10 +60,18 @@ const isWin = (board, player) => {
       board[c2] === board[c3] &&
       board[c1] === player
     ) {
-      return true;
+      return combo;
     }
   }
   return false;
+};
+
+// color the winning combo green
+const colorWin = () => {
+  let indices = isWin(board, true) || isWin(board, false);
+  for (let idx of indices) {
+    squares[idx].style.color = "green";
+  }
 };
 
 // check if the game draw
@@ -70,6 +89,7 @@ const reset = () => {
   board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
   squares.forEach((square) => {
     square.textContent = "-";
+    square.style.color = "var(--yellow)";
   });
   isOpen = false;
   modal.classList.toggle("hidden");
@@ -81,14 +101,18 @@ const move = (index, player) => {
     squares[index].textContent = player ? "X" : "O";
     if (isWin(board, true) || isWin(board, false)) {
       isRunning = false;
+      colorWin();
       if (isWin(board, false)) {
         toggleMessage("Computer Won!");
       } else {
         toggleMessage("You Won! o.O"); // not possible :p
       }
     }
+    if (isOver(board)) toggleMessage("it's a Draw!");
     if (player) {
+      let start = Date.now();
       computerMove();
+      time.textContent = Date.now() - start;
     }
   }
 };
@@ -115,5 +139,11 @@ const computerMove = () => {
       }
     }
   }
+  wins.textContent = winsCount;
+  defeats.textContent = defeatsCount;
+  games.textContent = gamesCount;
+  winsCount = 0;
+  defeatsCount = 0;
+  gamesCount = 0;
   move(bestMove, false);
 };

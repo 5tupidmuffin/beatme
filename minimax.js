@@ -5,8 +5,15 @@
 */
 
 const minimax = (position, depth, alpha, beta, maximizingPlayer) => {
-  if (isWin(position, false)) return 10;
-  if (isWin(position, true)) return -10;
+  gamesCount++;
+  if (isWin(position, false)) {
+    winsCount++;
+    return 10;
+  }
+  if (isWin(position, true)) {
+    defeatsCount++;
+    return -10;
+  }
   if (depth <= 0 || isOver(position)) return 0;
 
   if (maximizingPlayer) {

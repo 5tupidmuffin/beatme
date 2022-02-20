@@ -22,6 +22,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: black;
+  color: white;
 }
 
 h3 {
@@ -49,6 +50,22 @@ a {
   margin-top: 2rem;
 }
 
+.details {
+  margin-top: 2rem;
+}
+
+.details p {
+  margin: 0 0;
+}
+
+#wins {
+  color: var(--green);
+}
+
+#defeats {
+  color: var(--red);
+}
+
 .square {
   display: flex;
   justify-content: center;
@@ -58,8 +75,22 @@ a {
   border: 5px solid var(--yellow);
   color: var(--yellow);
 }
-.square:hover {
-  border: 5px solid white;
+
+.details {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details table {
+  width: 80%;
+  text-align: center;
+}
+
+.details table td {
+  min-width: 5rem;
 }
 
 .modal {
@@ -126,5 +157,9 @@ a {
 
   .message {
     font-size: 1.3rem;
+  }
+
+  .details {
+    width: 80%;
   }
 }
